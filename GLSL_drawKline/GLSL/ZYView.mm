@@ -7,6 +7,13 @@
 
 #import "ZYView.h"
 #import <OpenGLES/ES2/gl.h>
+
+typedef struct {
+    float r;
+    float g;
+    float b;
+} ColorSpace;
+
 @interface ZYView ()
 @property (nonatomic) CAEAGLLayer *eaglLayer;
 @property (nonatomic) EAGLContext *context;
@@ -16,10 +23,6 @@
 @end
 
 @implementation ZYView
-
-+ (Class)layerClass {
-    return [CAEAGLLayer class];
-}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -43,8 +46,8 @@ CGPoint transferToGLPointFrom(CGPoint point,CGRect rect) {
     return point;
 }
 
-static void drawRect(const CGRect bounds ,GLuint const position, const CGRect rect, BOOL isFill) {
-    drawTriangles(bounds, position, @[
+static void drawRect(const CGRect bounds ,GLuint const position,GLuint const positionColor, ColorSpace color, const CGRect rect, BOOL isFill) {
+    drawTriangles(bounds, position,positionColor, color, @[
         [NSValue valueWithCGPoint:rect.origin],
         [NSValue valueWithCGPoint:CGPointMake(rect.origin.x+rect.size.width, rect.origin.y)],
         [NSValue valueWithCGPoint:CGPointMake(rect.origin.x+rect.size.width, rect.origin.y+rect.size.height)],
@@ -52,24 +55,28 @@ static void drawRect(const CGRect bounds ,GLuint const position, const CGRect re
     ], isFill? GL_TRIANGLE_FAN : GL_LINE_LOOP);
 }
 
-static void drawLine(const CGRect bounds ,GLuint const position, CGPoint from, CGPoint to) {
-    drawTriangles(bounds, position, @[[NSValue valueWithCGPoint:from],[NSValue valueWithCGPoint:to]], GL_LINES);
+static void drawLine(const CGRect bounds ,GLuint const position,GLuint const positionColor,ColorSpace color, CGPoint from, CGPoint to) {
+    drawTriangles(bounds, position,positionColor,color, @[[NSValue valueWithCGPoint:from],[NSValue valueWithCGPoint:to]], GL_LINES);
 }
 
-static void drawTriangles(const CGRect bounds ,GLuint const position,NSArray<NSValue *> *pointValueArr, GLint glDrawType) {
+static void drawTriangles(const CGRect bounds ,GLuint const position,GLuint const positionColor,ColorSpace color,NSArray<NSValue *> *pointValueArr, GLint glDrawType) {
     
     const int pointCount = (int)pointValueArr.count;
-    
-    const int cFloatSize = pointCount * 3;
+    const int eachLineLength = 6;
+    const int cFloatSize = pointCount * eachLineLength;
     
     GLfloat *attrArr = new GLfloat[cFloatSize];
     for (int i=0; i<pointCount; i++) {
         NSValue *value = pointValueArr[i];
         CGPoint point = value.CGPointValue;
         CGPoint pointGL = transferToGLPointFrom(point, bounds);
-        attrArr[i*3] = pointGL.x;
-        attrArr[i*3+1] = pointGL.y;
-        attrArr[i*3+2] = 0.0f;
+        attrArr[i*eachLineLength] = pointGL.x;
+        attrArr[i*eachLineLength+1] = pointGL.y;
+        attrArr[i*eachLineLength+2] = 0.0f;
+        
+        attrArr[i*eachLineLength+3] = color.r;
+        attrArr[i*eachLineLength+4] = color.g;
+        attrArr[i*eachLineLength+5] = color.b;
     }
     
     static GLuint attrBuffer;
@@ -77,19 +84,21 @@ static void drawTriangles(const CGRect bounds ,GLuint const position,NSArray<NSV
         glGenBuffers(1, &attrBuffer);
     }
     glBindBuffer(GL_ARRAY_BUFFER, attrBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*pointCount, attrArr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*eachLineLength*pointCount, attrArr, GL_DYNAMIC_DRAW);
     delete [] attrArr;
     
-    glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, NULL);
+    glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * eachLineLength, NULL);
+    glVertexAttribPointer(positionColor, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * eachLineLength, (GLfloat *)NULL +3);
     
     glDrawArrays(glDrawType, 0, pointCount);
 }
 
 - (void)renderLayer {
-    glClear(GL_COLOR_BUFFER_BIT);
-    CGFloat scale = [UIScreen mainScreen].scale;
     
-    glViewport(0,0 , self.frame.size.width*scale, self.frame.size.height*scale);
+    glClearColor(1.0, 1.0, 0.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    glViewport(0,0 , self.frame.size.width, self.frame.size.height);
 
     NSString *vertFile = [[NSBundle mainBundle] pathForResource:@"shaderv" ofType:@"vsh"];
     NSString *fragFile = [[NSBundle mainBundle] pathForResource:@"shaderf" ofType:@"fsh"];
@@ -113,10 +122,16 @@ static void drawTriangles(const CGRect bounds ,GLuint const position,NSArray<NSV
     
     GLuint const position = glGetAttribLocation(self.program, "position");
     glEnableVertexAttribArray(position);
+    
+    GLuint const positionColor = glGetAttribLocation(self.program, "positionColor");
+    glEnableVertexAttribArray(positionColor);
+    
     CGRect const bounds = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
     
-    drawRect(bounds, position, CGRectMake(110, 110, 100, 100),false);
-    drawRect(bounds, position, CGRectMake(10, 10, 100, 100),true);
+    ColorSpace color = {0.5,0.5,1.0};
+//    drawRect(bounds, position, positionColor, {1.0,1.0,1.0}, self.bounds,true);
+    drawRect(bounds, position, positionColor, color, CGRectMake(110, 110, 100, 100),false);
+    drawRect(bounds, position, positionColor, {0.9,0.1,0.5}, CGRectMake(10, 10, 100, 100),true);
 
     [self.context presentRenderbuffer:GL_RENDERBUFFER];
 }
@@ -174,8 +189,10 @@ static void drawTriangles(const CGRect bounds ,GLuint const position,NSArray<NSV
 }
 
 - (void)setupLayer {
-    self.eaglLayer = (CAEAGLLayer *)self.layer;
-    [self setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.eaglLayer = [CAEAGLLayer layer];//  (CAEAGLLayer *)self.layer;
+    [self.layer addSublayer:self.eaglLayer];
+    self.eaglLayer.bounds = self.bounds;
+    self.eaglLayer.position = CGPointMake(self.bounds.size.width/2.0, self.bounds.size.height/2.0);
     self.eaglLayer.drawableProperties = @{
         kEAGLDrawablePropertyRetainedBacking : @false,
         kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8,

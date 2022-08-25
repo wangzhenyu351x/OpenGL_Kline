@@ -1,8 +1,8 @@
 attribute vec4 position;
-// attribute vec2 textCoordinate;
-// varying lowp vec2 varyTextCoord;
+attribute vec4 positionColor;
+varying lowp vec4 varyColor;
 
 void main(){
-    // varyTextCoord = textCoordinate;
+    varyColor = positionColor;
     gl_Position = position;
 }
