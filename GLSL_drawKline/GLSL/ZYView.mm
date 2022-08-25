@@ -91,6 +91,7 @@ static void drawTriangles(const CGRect bounds ,GLuint const position,GLuint cons
     glVertexAttribPointer(positionColor, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * eachLineLength, (GLfloat *)NULL +3);
     
     glDrawArrays(glDrawType, 0, pointCount);
+    
 }
 
 - (void)renderLayer {

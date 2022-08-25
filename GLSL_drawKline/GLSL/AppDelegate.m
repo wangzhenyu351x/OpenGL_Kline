@@ -6,6 +6,9 @@
 //
 
 #import "AppDelegate.h"
+#ifdef DEBUG
+#import <DoraemonKit/DoraemonManager.h>
+#endif
 
 @interface AppDelegate ()
 
@@ -15,7 +18,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[DoraemonManager shareInstance] installWithPid:@"090192d0f389bc9ccad10b1144205ea3"];
+    });
     return YES;
 }
 

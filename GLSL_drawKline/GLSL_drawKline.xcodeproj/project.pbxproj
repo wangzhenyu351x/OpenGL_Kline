@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92E4B50FDFAFF52BBE55E459 /* Pods_GLSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6A41722CED6145C1B47A0C2 /* Pods_GLSL.framework */; };
+		C66373E028B7951400029277 /* YJBManyStocksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C66373DE28B7951400029277 /* YJBManyStocksVC.m */; };
+		C66373E328B796AD00029277 /* YJBKlineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C66373E228B796AD00029277 /* YJBKlineViewCell.m */; };
+		C66373E628B796EB00029277 /* ZYDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C66373E528B796EB00029277 /* ZYDrawView.m */; };
+		C66373E928B79D6500029277 /* ZYOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C66373E828B79D6500029277 /* ZYOpenGLView.mm */; };
+		C66373EC28B79E4200029277 /* ZYEAGLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C66373EB28B79E4200029277 /* ZYEAGLLayer.m */; };
 		C6F6576927EDBFDE0088F82D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6576827EDBFDE0088F82D /* AppDelegate.m */; };
 		C6F6576C27EDBFDE0088F82D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6576B27EDBFDE0088F82D /* SceneDelegate.m */; };
 		C6F6576F27EDBFDE0088F82D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6576E27EDBFDE0088F82D /* ViewController.m */; };
@@ -20,6 +26,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		68BA313301B17A08AAE36EEE /* Pods-GLSL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLSL.debug.xcconfig"; path = "Target Support Files/Pods-GLSL/Pods-GLSL.debug.xcconfig"; sourceTree = "<group>"; };
+		A6A41722CED6145C1B47A0C2 /* Pods_GLSL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GLSL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C66373DE28B7951400029277 /* YJBManyStocksVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YJBManyStocksVC.m; sourceTree = "<group>"; };
+		C66373DF28B7951400029277 /* YJBManyStocksVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YJBManyStocksVC.h; sourceTree = "<group>"; };
+		C66373E128B796AD00029277 /* YJBKlineViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YJBKlineViewCell.h; sourceTree = "<group>"; };
+		C66373E228B796AD00029277 /* YJBKlineViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YJBKlineViewCell.m; sourceTree = "<group>"; };
+		C66373E428B796EB00029277 /* ZYDrawView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYDrawView.h; sourceTree = "<group>"; };
+		C66373E528B796EB00029277 /* ZYDrawView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYDrawView.m; sourceTree = "<group>"; };
+		C66373E728B79D6500029277 /* ZYOpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYOpenGLView.h; sourceTree = "<group>"; };
+		C66373E828B79D6500029277 /* ZYOpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYOpenGLView.mm; sourceTree = "<group>"; };
+		C66373EA28B79E4200029277 /* ZYEAGLLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYEAGLLayer.h; sourceTree = "<group>"; };
+		C66373EB28B79E4200029277 /* ZYEAGLLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYEAGLLayer.m; sourceTree = "<group>"; };
 		C6F6576427EDBFDE0088F82D /* GLSL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLSL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6F6576727EDBFDE0088F82D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C6F6576827EDBFDE0088F82D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -36,6 +54,7 @@
 		C6F6578127EDC0260088F82D /* ZYView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYView.mm; sourceTree = "<group>"; };
 		C6F6578327EDCF990088F82D /* shaderf.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shaderf.fsh; sourceTree = "<group>"; };
 		C6F6578427EDD0120088F82D /* shaderv.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shaderv.vsh; sourceTree = "<group>"; };
+		EC317C63CAE794E363DDD161 /* Pods-GLSL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLSL.release.xcconfig"; path = "Target Support Files/Pods-GLSL/Pods-GLSL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +62,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92E4B50FDFAFF52BBE55E459 /* Pods_GLSL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6FC9077106EA91EDA3D676D5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				68BA313301B17A08AAE36EEE /* Pods-GLSL.debug.xcconfig */,
+				EC317C63CAE794E363DDD161 /* Pods-GLSL.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C293F327318EA12ACCE5874D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A6A41722CED6145C1B47A0C2 /* Pods_GLSL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C6F6575B27EDBFDE0088F82D = {
 			isa = PBXGroup;
 			children = (
 				C6F6576627EDBFDE0088F82D /* GLSL */,
 				C6F6576527EDBFDE0088F82D /* Products */,
+				6FC9077106EA91EDA3D676D5 /* Pods */,
+				C293F327318EA12ACCE5874D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,8 +113,18 @@
 				C6F6576B27EDBFDE0088F82D /* SceneDelegate.m */,
 				C6F6576D27EDBFDE0088F82D /* ViewController.h */,
 				C6F6576E27EDBFDE0088F82D /* ViewController.m */,
+				C66373DF28B7951400029277 /* YJBManyStocksVC.h */,
+				C66373DE28B7951400029277 /* YJBManyStocksVC.m */,
+				C66373E128B796AD00029277 /* YJBKlineViewCell.h */,
+				C66373E228B796AD00029277 /* YJBKlineViewCell.m */,
+				C66373E428B796EB00029277 /* ZYDrawView.h */,
+				C66373E528B796EB00029277 /* ZYDrawView.m */,
+				C66373E728B79D6500029277 /* ZYOpenGLView.h */,
+				C66373E828B79D6500029277 /* ZYOpenGLView.mm */,
 				C6F6578027EDC0260088F82D /* ZYView.h */,
 				C6F6578127EDC0260088F82D /* ZYView.mm */,
+				C66373EA28B79E4200029277 /* ZYEAGLLayer.h */,
+				C66373EB28B79E4200029277 /* ZYEAGLLayer.m */,
 				C6F6578327EDCF990088F82D /* shaderf.fsh */,
 				C6F6578427EDD0120088F82D /* shaderv.vsh */,
 				C6F6577027EDBFDE0088F82D /* Main.storyboard */,
@@ -94,9 +143,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6F6577D27EDBFE10088F82D /* Build configuration list for PBXNativeTarget "GLSL" */;
 			buildPhases = (
+				4BB4C967D9B0E186057A5C62 /* [CP] Check Pods Manifest.lock */,
 				C6F6576027EDBFDE0088F82D /* Sources */,
 				C6F6576127EDBFDE0088F82D /* Frameworks */,
 				C6F6576227EDBFDE0088F82D /* Resources */,
+				F07579766C8DDADE0188EAB1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,15 +205,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4BB4C967D9B0E186057A5C62 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GLSL-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F07579766C8DDADE0188EAB1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GLSL/Pods-GLSL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GLSL/Pods-GLSL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GLSL/Pods-GLSL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C6F6576027EDBFDE0088F82D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C66373E928B79D6500029277 /* ZYOpenGLView.mm in Sources */,
+				C66373E328B796AD00029277 /* YJBKlineViewCell.m in Sources */,
 				C6F6576F27EDBFDE0088F82D /* ViewController.m in Sources */,
+				C66373EC28B79E4200029277 /* ZYEAGLLayer.m in Sources */,
 				C6F6576927EDBFDE0088F82D /* AppDelegate.m in Sources */,
+				C66373E628B796EB00029277 /* ZYDrawView.m in Sources */,
 				C6F6577A27EDBFE10088F82D /* main.m in Sources */,
 				C6F6576C27EDBFDE0088F82D /* SceneDelegate.m in Sources */,
+				C66373E028B7951400029277 /* YJBManyStocksVC.m in Sources */,
 				C6F6578227EDC0260088F82D /* ZYView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +401,7 @@
 		};
 		C6F6577E27EDBFE10088F82D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68BA313301B17A08AAE36EEE /* Pods-GLSL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -331,6 +430,7 @@
 		};
 		C6F6577F27EDBFE10088F82D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC317C63CAE794E363DDD161 /* Pods-GLSL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
