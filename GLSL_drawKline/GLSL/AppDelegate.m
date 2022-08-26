@@ -6,9 +6,9 @@
 //
 
 #import "AppDelegate.h"
-#ifdef DEBUG
+//#ifdef DEBUG
 #import <DoraemonKit/DoraemonManager.h>
-#endif
+//#endif
 
 @interface AppDelegate ()
 

@@ -8,8 +8,16 @@
 
 #import "YJBManyStocksVC.h"
 #import "YJBKlineViewCell.h"
+#import "ZYDrawView.h"
+#import "ZYShapeLayerView.h"
+#import "common.h"
+#import "ZYView.h"
 @interface YJBManyStocksVC () <UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic) UICollectionView *collectionView;
+@property (nonatomic) ZYDrawView *drawView;
+@property (nonatomic) ZYView *openGLView;
+@property (nonatomic) ZYShapeLayerView *shapeView;
+@property (nonatomic) UITextField *textField;
 @end
 
 @implementation YJBManyStocksVC
@@ -17,43 +25,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self generateNavBar];
-    [self addCollectionView];
-    [self requestKLineDataWithIsHistory:NO];
+//    [self generateNavBar];
+//    [self addCollectionView];
+//    [self requestKLineDataWithIsHistory:NO];
+    ZYDrawView *drawView = [[ZYDrawView alloc] initWithFrame:CGRectMake(50, 50, 300, 200)];
+    [self.view addSubview:drawView];
+    self.drawView = drawView;
     
-}
-
-- (void)generateNavBar {
-    if (YES) {
-//        self.navBar = [HsNavigationBar navigationBarWithLeftBarType:HsNavigationLeftBarTypeBack];
-//
-//        [self.view addSubview:self.navBar];
-//        self.navBar.useNewAppearanceColor = true;
-//        self.navBar.updateAppearanceColor = ^(HsNavigationBar *navBar) {
-//            navBar.backgroundView.backgroundColor = YJBHexColor(#ffffff,#0f0f1b);
-//        };
-//        [self.navBar updateAppearance];
-        
-//        ({
-//            UISwipeGestureRecognizer *leftGes = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(minusNum)];
-//            leftGes.direction = UISwipeGestureRecognizerDirectionLeft;
-//            [self.navBar addGestureRecognizer:leftGes];
-//        });
-//        ({
-//            UISwipeGestureRecognizer *rightGes = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(addNum)];
-//            rightGes.direction = UISwipeGestureRecognizerDirectionRight;
-//            [self.navBar addGestureRecognizer:rightGes];
-//        });
-//        
-//        ({
-//            UITapGestureRecognizer *tapClick = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
-//            [self.navBar addGestureRecognizer:tapClick];
-//        });
-        
-    }
-}
-
-- (void)tapClick:(UIGestureRecognizer *)ges {
+    ZYShapeLayerView *shapeView = [[ZYShapeLayerView alloc] initWithFrame:CGRectMake(50, CGRectGetMaxY(drawView.frame) + 20, 300, 200)];
+    [self.view addSubview:shapeView];
+    self.shapeView = shapeView;
+    
+    ZYView *glView = [[ZYView alloc] initWithFrame:CGRectMake(50, CGRectGetMaxY(shapeView.frame) + 20, 300, 200)];
+    [self.view addSubview:glView];
+    self.openGLView = glView;
+    
+    UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(50, CGRectGetMaxY(glView.frame) + 20, 350, 30)];
+    field.textColor = [UIColor blackColor];
+    field.userInteractionEnabled = NO;
+    [self.view addSubview:field];
+    self.textField = field;
+    
+    [self beginTimer];
+    
 }
 
 - (void)beginTimer {
@@ -61,35 +55,47 @@
     if (link) {
         return;
     }
-    link = [CADisplayLink displayLinkWithTarget:self selector:@selector(redisplay)];
+    link = [CADisplayLink displayLinkWithTarget:self selector:@selector(display)];
     [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
-
-- (void)redisplay {
-//    static int i = 0;
-//    i++;
-//    if (i % 10 == 0) {
-        [self display];
-//    }
-}
-
+static int kSwitch = 0;
 - (void)display {
-    NSArray<__kindof UICollectionViewCell *> *cells = [self.collectionView visibleCells];
-    NSUInteger const count = cells.count;
-    unsigned long countMin = count;// MIN(count, 5);
-    for (int i=0; i<countMin; i++) {
-        YJBKlineViewCell *cell = cells[i];
-        [cell.drawview setNeedsDisplay];
+//    NSArray<__kindof UICollectionViewCell *> *cells = [self.collectionView visibleCells];
+//    NSUInteger const count = cells.count;
+//    unsigned long countMin = count;// MIN(count, 5);
+//    for (int i=0; i<countMin; i++) {
+//        YJBKlineViewCell *cell = cells[i];
+//        [cell.drawview setNeedsDisplay];
+//    }
+    
+    if (kSwitch == 1) {
+        [self.drawView setNeedsDisplay];
+    } else if (kSwitch == 2) {
+        [self.shapeView setNeedsDisplay];
+    } else {
+        [self.openGLView renderLayer];
     }
+    [self fresh];
+
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self display];
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    kSwitch = (kSwitch+1)%3;
+    NSLog(@"%d",kSwitch);
+    [self fresh];
 }
+
+- (void)fresh {
+    self.textField.text = [NSString stringWithFormat:@" %@ => %d time:%.2f",kSwitch == 1?@"drawView" :( kSwitch == 2? @"shapeView": @"glView"),g_SLICE_NUM,[NSDate date].timeIntervalSince1970];
+}
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self display];
+//}
 
 - (void)addCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(50, 50);
+    layout.itemSize = CGSizeMake(300, 300);
     layout.minimumLineSpacing = 2;
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     collectionView.showsHorizontalScrollIndicator = NO;
@@ -112,7 +118,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 80;
+    return 20;
 }
 #pragma mark - delegate
 

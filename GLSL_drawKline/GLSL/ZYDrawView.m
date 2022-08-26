@@ -6,6 +6,8 @@
 //
 
 #import "ZYDrawView.h"
+#import "common.h"
+#import "YJBManyStocksVC.h"
 
 @implementation ZYDrawView
 
@@ -16,12 +18,24 @@
     return self;
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    g_SLICE_NUM = g_SLICE_NUM * 2;
+    if (g_SLICE_NUM > 1000000) {
+        g_SLICE_NUM = 100;
+    }
+    NSLog(@"%d",g_SLICE_NUM);
+    YJBManyStocksVC *vc = (YJBManyStocksVC *)self.nextResponder.nextResponder;
+    if ([vc isKindOfClass:YJBManyStocksVC.class]) {
+        [vc fresh];
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     //创建一条路径
 //    CGMutablePathRef path = CGPathCreateMutable();
     CGContextSetLineWidth(context, 1);
-    int const num = 100;
+    int const num = g_SLICE_NUM;
     double eachH = self.bounds.size.height/num;
     double eachW = self.bounds.size.width /num;
     

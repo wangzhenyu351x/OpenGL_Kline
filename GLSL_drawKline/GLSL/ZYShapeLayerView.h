@@ -1,15 +1,15 @@
 //
-//  ZYOpenGLView.h
+//  ZYShapeLayerView.h
 //  GLSL
 //
-//  Created by zhenyu on 2022/8/25.
+//  Created by zhenyu on 2022/8/26.
 //
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZYOpenGLView : UIView
+@interface ZYShapeLayerView : UIView
 
 @end
 
